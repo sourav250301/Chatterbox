@@ -4,6 +4,7 @@ import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import { TiMessages } from "react-icons/ti";
 import { useAuthContext } from "../../context/AuthContext";
+import { BsTelephone } from "react-icons/bs";
 
 const MessageContainer = () => {
 	const { selectedConversation, setSelectedConversation } = useConversation();
