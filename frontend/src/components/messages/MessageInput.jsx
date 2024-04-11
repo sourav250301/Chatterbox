@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { BsEmojiSmile, BsFileEarmarkText, BsSend } from "react-icons/bs";
 import useSendMessage from "../../hooks/useSendMessage";
+import FileInputModal from '../modals/FileInputModal'
+import './messageInputStyle.css';
+import {Row,Col,Container, Button} from 'react-bootstrap'
 
 const MessageInput = () => {
 	const [message, setMessage] = useState("");
 	const { loading, sendMessage } = useSendMessage();
+	const [emojiLoader, _emojiLoader] = useState(false);
+	const [fileModal, _fileModal] = useState(false)
 	// const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
 	const handleSubmit = async (e) => {
@@ -14,18 +19,17 @@ const MessageInput = () => {
 		setMessage("");
 	};
 
-	const FileDropzone = () => {
-		const handleChange = (files) => {
-		  console.log(files)
-		}
-		const handleError = (error, file) => {
-			console.log('error code ' + error.code + ': ' + error.message)
-		  }
-	}
+	const handleFileBtn = () => {_fileModal(!fileModal)}
+
+	const handleEmojiBtn = () => {}
+
 	
 	return (
+		<>
 		<form className='px-4 my-3' onSubmit={handleSubmit}>
-			<div className='w-full relative'>
+			<Container className='w-full'>
+				<Row className="w-full">
+				<Col sm={12}>
 				<input
 					type='text'
 					className='border text-sm rounded-lg block w-full p-2.5  bg-gray-700 border-gray-600 text-white'
@@ -33,18 +37,29 @@ const MessageInput = () => {
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
 				/>
-				<button type='submit' className='absolute inset-y-0 end-0 flex items-center pe-4'>
+				</Col>
+				</Row>
+				<Row>
+				<Col sm={2}>
+				<Button type='submit' className='msg-inp-btn'>
 					{loading ? <div className='loading loading-spinner'></div> : <BsSend />}
-				</button>
-				{/* <button type='button' className='absolute inset-y-0 end-0 flex items-center pe-12'><BsFileEarmarkText/>
-				</button>
-				<button type='button' className='absolute inset-y-1 end-0 flex items-center pe-20'><BsEmojiSmile/>
-				</button> */}
-				{/* <button type='button' className='absolute inset-y-0 end-0 flex items-center pe-3'>
-				<i class="bi bi-file-earmark-text"></i>
-				</button> */}
-			</div>
+				</Button>
+				</Col>
+				<Col sm={2}>
+				<Button type='button' onClick={handleFileBtn} className='msg-inp-btn'> 
+				 	{loading ? <div className='loading loading-spinner'></div>: <BsFileEarmarkText/>}
+				</Button>
+				</Col>
+				<Col sm={2}>
+				<Button type='button' className='msg-inp-btn'> 
+					{loading ? <div className='loading loading-spinner'></div>: <BsEmojiSmile/>}
+				</Button> 
+				</Col>
+				</Row>
+			</Container>
 		</form>
+		<FileInputModal show={fileModal} />
+		</>
 	);
 };
 export default MessageInput;

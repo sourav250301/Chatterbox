@@ -5,10 +5,11 @@ import Messages from "./Messages";
 import { TiMessages } from "react-icons/ti";
 import { useAuthContext } from "../../context/AuthContext";
 import { BsTelephone } from "react-icons/bs";
+import { extractTime } from "../../utils/extractTime";
+import { BiDockBottom } from "react-icons/bi";
 
 const MessageContainer = () => {
 	const { selectedConversation, setSelectedConversation } = useConversation();
-
 	useEffect(() => {
 		// cleanup function (unmounts)
 		return () => setSelectedConversation(null);
@@ -21,10 +22,10 @@ const MessageContainer = () => {
 			) : (
 				<>
 					{/* Header */}
-					<div className='bg-transparent px-4 py-3 mb-2'>
-						<span className='label-text color-slate-50'>To:</span>{" "}
+					<div className='bg-transparent px-4 py-3 mb-2'style={{ borderBottom: '0.5px solid grey' }}>
 						<span className='text-slate-50 font-bold'>{selectedConversation.fullName}</span>
-						<span className='label-text color-lime-500 justify-between'>  </span>
+						<span className='label-text justify-center'>  </span>
+						<span className="text-slate-50 font-normal">Last seen : </span>
 					</div>
 					<Messages />
 					<MessageInput />
@@ -40,7 +41,7 @@ const NoChatSelected = () => {
 	return (
 		<div className='flex items-center justify-center w-full h-full'>
 			<div className='px-4 text-center sm:text-lg md:text-xl text-gray-200 font-semibold flex flex-col items-center gap-2'>
-				<p>Welcome 👋 {authUser.fullName} ❄</p>
+				<p>Welcome 👋 {authUser.fullName} </p>
 				<p>Select a chat to start messaging</p>
 				<TiMessages className='text-3xl md:text-6xl text-center' />
 			</div>

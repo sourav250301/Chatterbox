@@ -1,12 +1,23 @@
 import MessageContainer from "../../components/messages/MessageContainer";
 import Sidebar from "../../components/sidebar/Sidebar";
+import { Container, Row, Col} from 'react-bootstrap'
+import SearchInput from '../../components/sidebar/SearchInput'
 
 const Home = () => {
 	return (
-		<div className='flex sm:h-full md:h-full lg:h_full sm:w-full md:w-full lg:w-full rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
-			<Sidebar />
+		
+		<Container>
+			<Row className='border-r border-slate-500 p-4'>
+			<SearchInput />
+			</Row>
+			<Row>
+				<Col sm={4}><Sidebar />
+			</Col>
+			<Col sm={8}>
 			<MessageContainer />
-		</div>
+			</Col>
+			</Row>
+		</Container>
 	);
 };
 export default Home;
